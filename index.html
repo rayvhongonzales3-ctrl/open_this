@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday ♡</title>
+
+<style>
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #542c40 0%,
+            #2d1723 45%,
+            #10080d 100%
+        );
+
+    font-family: Georgia, "Times New Roman", serif;
+    color: #f4dce5;
+}
+
+
+/* =========================
+   FALLING PETALS
+========================= */
+
+.petal {
+    position: fixed;
+
+    top: -30px;
+
+    width: 12px;
+    height: 18px;
+
+    border-radius: 100% 0 100% 0;
+
+    opacity: 0.8;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    box-shadow:
+        0 0 10px rgba(255, 150, 180, 0.25);
+
+    animation:
+        fall linear forwards,
+        sway ease-in-out infinite alternate;
+}
+
+@keyframes fall {
+
+    to {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+    }
+
+}
+
+@keyframes sway {
+
+    from {
+        margin-left: -35px;
+    }
+
+    to {
+        margin-left: 35px;
+    }
+
+}
+
+
+/* =========================
+   ENVELOPE INTRO
+========================= */
+
+.intro {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #542c40,
+            #1a0c13 75%
+        );
+
+    z-index: 10;
+
+    transition:
+        opacity 1.5s ease,
+        visibility 1.5s ease;
+}
+
+.intro.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+}
+
+.intro-content {
+
+    text-align: center;
+
+}
+
+.intro-title {
+
+    color: #f0a7bb;
+
+    font-size: 17px;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 35px;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =========================
+   ENVELOPE
+========================= */
+
+.envelope {
+
+    position: relative;
+
+    width: 280px;
+    height: 180px;
+
+    cursor: pointer;
+
+    margin: auto;
+
+    perspective: 1000px;
+}
+
+.envelope-body {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background: #542b3d;
+
+    border: 1px solid #b86c85;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.7);
+
+    overflow: hidden;
+}
+
+
+/* Bottom envelope flap */
+
+.envelope-body::before {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+
+    border-left:
+        140px solid transparent;
+
+    border-right:
+        140px solid transparent;
+
+    border-bottom:
+        100px solid #351a27;
+}
+
+
+/* Side folds */
+
+.envelope-body::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    border-left:
+        140px solid #69374c;
+
+    border-right:
+        140px solid #69374c;
+
+    border-bottom:
+        90px solid transparent;
+}
+
+
+/* Envelope flap */
+
+.flap {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left:
+        140px solid transparent;
+
+    border-right:
+        140px solid transparent;
+
+    border-top:
+        105px solid #81465c;
+
+    transform-origin: top center;
+
+    transition:
+        transform 1.2s ease;
+
+    z-index: 4;
+}
+
+
+/* Heart seal */
+
+.seal {
+
+    position: absolute;
+
+    left: 50%;
+    top: 80px;
+
+    transform: translateX(-50%);
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    background: #b75b78;
+
+    border: 2px solid #efafc0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #ffe6ee;
+
+    font-size: 19px;
+
+    z-index: 5;
+
+    transition:
+        opacity 0.5s ease;
+}
+
+
+/* Open animation */
+
+.envelope.open .flap {
+
+    transform:
+        rotateX(180deg);
+}
+
+.envelope.open .seal {
+
+    opacity: 0;
+}
+
+
+/* Click text */
+
+.click-text {
+
+    margin-top: 30px;
+
+    color: #d69aac;
+
+    font-size: 14px;
+
+    letter-spacing: 3px;
+
+    animation:
+        breathe 2s infinite;
+}
+
+@keyframes breathe {
+
+    50% {
+        opacity: 0.35;
+    }
+
+}
+
+
+/* =========================
+   LETTER
+========================= */
+
+.letter-container {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 60px 15px;
+
+    opacity: 0;
+
+    transform:
+        translateY(30px);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+}
+
+.letter-container.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+.letter {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 720px;
+
+    padding:
+        65px 55px;
+
+    background:
+        linear-gradient(
+            rgba(32, 16, 24, 0.97),
+            rgba(15, 9, 13, 0.98)
+        );
+
+    border:
+        1px solid #9d5a72;
+
+    box-shadow:
+
+        0 0 0 8px
+        rgba(0,0,0,0.25),
+
+        0 30px 80px
+        rgba(0,0,0,0.8),
+
+        0 0 50px
+        rgba(180,80,120,0.08);
+}
+
+
+/* Inner border */
+
+.letter::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 13px;
+    left: 13px;
+    right: 13px;
+    bottom: 13px;
+
+    border:
+        1px solid
+        rgba(215,130,155,0.25);
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   LETTER TEXT
+========================= */
+
+.title {
+
+    text-align: center;
+
+    font-size:
+        clamp(38px, 8vw, 65px);
+
+    font-weight: normal;
+
+    font-style: italic;
+
+    color: #f0a7bb;
+
+    margin-bottom: 10px;
+
+    text-shadow:
+        0 0 20px
+        rgba(240,167,187,0.18);
+}
+
+
+.divider {
+
+    text-align: center;
+
+    color: #d77d99;
+
+    margin-bottom: 38px;
+}
+
+.divider::before,
+.divider::after {
+
+    content: "────";
+
+    color: #754359;
+
+    margin:
+        0 12px;
+}
+
+
+.greeting {
+
+    font-size: 20px;
+
+    margin-bottom: 28px;
+
+    color: #f0d8e0;
+}
+
+
+p {
+
+    font-size: 17px;
+
+    line-height: 1.9;
+
+    margin-bottom: 24px;
+
+    color: #cdbbc3;
+}
+
+
+.highlight {
+
+    color: #ef9fb5;
+
+}
+
+
+/* =========================
+   CLOSING
+========================= */
+
+.closing {
+
+    text-align: center;
+
+    margin-top: 45px;
+}
+
+
+.birthday {
+
+    color: #f0a7bb;
+
+    font-size: 27px;
+
+    font-style: italic;
+
+    margin-bottom: 15px;
+}
+
+
+.signature {
+
+    color: #b99aa6;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================
+   MUSIC BUTTON
+========================= */
+
+.music-button {
+
+    position: fixed;
+
+    bottom: 20px;
+    right: 20px;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    background:
+        #351b29;
+
+    border:
+        1px solid #b86c85;
+
+    color: #f0a7bb;
+
+    cursor: pointer;
+
+    z-index: 30;
+
+    font-size: 19px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.4);
+
+    transition:
+        0.3s ease;
+}
+
+.music-button:hover {
+
+    background: #5b2b40;
+
+    transform:
+        scale(1.08);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .letter {
+
+        padding:
+            55px 30px;
+    }
+
+    .letter::before {
+
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+    }
+
+    p {
+
+        font-size: 16px;
+
+        line-height: 1.8;
+    }
+
+    .greeting {
+
+        font-size: 18px;
+    }
+
+    .envelope {
+
+        transform:
+            scale(0.9);
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     BACKGROUND MUSIC
+========================= -->
+
+<audio id="music" loop>
+
+    <source
+        src="music.mp3"
+        type="audio/mpeg">
+
+</audio>
+
+
+
+<!-- =========================
+     ENVELOPE SCREEN
+========================= -->
+
+<section
+    class="intro"
+    id="intro">
+
+    <div class="intro-content">
+
+
+        <div class="intro-title">
+
+            A little something for you
+
+        </div>
+
+
+        <div
+            class="envelope"
+            id="envelope">
+
+
+            <div
+                class="envelope-body">
+            </div>
+
+
+            <div
+                class="flap">
+            </div>
+
+
+            <div
+                class="seal">
+
+                ♥
+
+            </div>
+
+
+        </div>
+
+
+        <div class="click-text">
+
+            CLICK THE ENVELOPE
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     LETTER
+========================= -->
+
+<main
+    class="letter-container"
+    id="letterContainer">
+
+
+    <article class="letter">
+
+
+        <h1 class="title">
+
+            Happy Birthday
+
+        </h1>
+
+
+        <div class="divider">
+
+            ♥
+
+        </div>
+
+
+        <div class="greeting">
+
+            Dear You,
+
+        </div>
+
+
+
+        <p>
+
+            Today is your day.
+
+            Another year has passed, and somehow,
+            you're still here — still growing,
+            still becoming someone the world hasn't
+            completely figured out yet.
+
+        </p>
+
+
+
+        <p>
+
+            I know life hasn't always been gentle with you.
+
+            There are things you've carried quietly,
+            battles you've fought without telling anyone,
+            and moments when simply getting through
+            the day was already enough.
+
+        </p>
+
+
+
+        <p>
+
+            But you made it here.
+
+            And maybe that's something worth
+            celebrating too.
+
+        </p>
+
+
+
+        <p>
+
+            And if this year doesn't turn out exactly
+            the way you imagined, I hope you remember
+            that not every beautiful thing arrives on time.
+
+        </p>
+
+
+
+        <p>
+
+            So for today, don't worry too much
+            about tomorrow.
+
+            Just allow yourself to exist.
+
+            To breathe.
+
+            To smile.
+
+            And to appreciate that you are still becoming. God Bless
+
+        </p>
+
+
+
+        <div class="closing">
+
+
+            <div class="birthday">
+
+                Happy Birthday.
+
+            </div>
+
+
+            <div class="signature">
+
+                May life be kinder to you this year.
+                <br>
+
+                Take care of yourself.
+
+            </div>
+
+
+        </div>
+
+
+    </article>
+
+</main>
+
+
+
+<!-- =========================
+     MUSIC BUTTON
+========================= -->
+
+<button
+    class="music-button"
+    id="musicButton">
+
+    ♪
+
+</button>
+
+
+
+<script>
+
+/* =========================
+   ENVELOPE OPENING
+========================= */
+
+const envelope =
+    document.getElementById("envelope");
+
+const intro =
+    document.getElementById("intro");
+
+const letter =
+    document.getElementById("letterContainer");
+
+const music =
+    document.getElementById("music");
+
+let opened = false;
+
+
+envelope.addEventListener(
+    "click",
+    function() {
+
+        if (opened) return;
+
+        opened = true;
+
+
+        /* Open envelope */
+
+        envelope.classList.add("open");
+
+
+        /* Start music */
+
+        music.play().catch(() => {});
+
+
+        /* Hide envelope */
+
+        setTimeout(
+            function() {
+
+                intro.classList.add("hide");
+
+
+                /* Show letter */
+
+                setTimeout(
+                    function() {
+
+                        letter.classList.add("show");
+
+                    },
+                    500
+                );
+
+            },
+            1000
+        );
+
+    }
+);
+
+
+
+/* =========================
+   MUSIC BUTTON
+========================= */
+
+const musicButton =
+    document.getElementById("musicButton");
+
+
+musicButton.addEventListener(
+    "click",
+    function() {
+
+        if (music.paused) {
+
+            music.play();
+
+            musicButton.innerHTML = "♪";
+
+        }
+
+        else {
+
+            music.pause();
+
+            musicButton.innerHTML = "🔇";
+
+        }
+
+    }
+);
+
+
+
+/* =========================
+   FALLING PINK PETALS
+========================= */
+
+function createPetal() {
+
+
+    const petal =
+        document.createElement("div");
+
+
+    petal.classList.add("petal");
+
+
+    /* Random horizontal position */
+
+    petal.style.left =
+        Math.random() * 100 + "vw";
+
+
+    /* Random falling speed */
+
+    petal.style.animationDuration =
+        (5 + Math.random() * 7) + "s";
+
+
+    /* Random delay */
+
+    petal.style.animationDelay =
+        Math.random() * 2 + "s";
+
+
+    /* Random size */
+
+    const size =
+        8 + Math.random() * 10;
+
+
+    petal.style.width =
+        size + "px";
+
+
+    petal.style.height =
+        size * 1.4 + "px";
+
+
+    /* Pink color palette */
+
+    const pinks = [
+
+        "#ffb6c8",
+        "#f4a6b8",
+        "#ee91a9",
+        "#e57e99",
+        "#d96f8a",
+        "#c85c78",
+        "#f29ab0",
+        "#ffc1d0"
+
+    ];
+
+
+    petal.style.background =
+        pinks[
+            Math.floor(
+                Math.random() * pinks.length
+            )
+        ];
+
+
+    document.body.appendChild(petal);
+
+
+    /* Remove after animation */
+
+    setTimeout(
+        function() {
+
+            petal.remove();
+
+        },
+        14000
+    );
+
+}
+
+
+/* Create petals */
+
+setInterval(
+    createPetal,
+    350
+);
+
+
+/* Initial petals */
+
+for (
+    let i = 0;
+    i < 20;
+    i++
+) {
+
+    setTimeout(
+        createPetal,
+        i * 200
+    );
+
+}
+
+</script>
+
+
+</body>
+</html>
